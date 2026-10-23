@@ -1,0 +1,16 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "Aventura Alexander",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "Aventura",
+  "start_url": "[https://joraregut.github.io/Aventura-Alexander/](https://joraregut.github.io/Aventura-Alexander/)",
+  "theme_color": "#ffffff",
+  "description": "Aplicación de seguimiento de hábitos y logros infantiles.",
+  "id": "pp.Soft",
+  "categories": [
+    "education"
+  ]
+}
