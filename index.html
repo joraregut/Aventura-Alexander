@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Camino de Logros 🌟</title>
+  <style>
+    :root {
+      --primary: #FF6B6B;
+      --secondary: #4ECDC4;
+      --accent: #FFE66D;
+      --bg: #F7F9FC;
+      --text: #2D3436;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .app-container {
+      max-width: 450px;
+      width: 100%;
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      color: var(--primary);
+      margin: 5px 0;
+      font-size: 24px;
+    }
+
+    .progress-card {
+      background: linear-gradient(135deg, var(--secondary), #45B7AA);
+      color: white;
+      border-radius: 15px;
+      padding: 15px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .progress-card h2 {
+      margin: 0;
+      font-size: 32px;
+    }
+
+    .tasks-section {
+      margin-bottom: 20px;
+    }
+
+    .task-item {
+      display: flex;
+      align-items: center;
+      background: #F0F3F8;
+      padding: 12px 15px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .task-item input {
+      width: 22px;
+      height: 22px;
+      margin-right: 12px;
+      cursor: pointer;
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    button {
+      border: none;
+      padding: 14px;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    .btn-child {
+      background-color: var(--accent);
+      color: #333;
+    }
+
+    .btn-parent {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .roadmap {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .day-node {
+      aspect-ratio: 1;
+      border-radius: 10px;
+      background: #E2E8F0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 12px;
+      color: #718096;
+    }
+
+    .day-node.completed {
+      background: var(--secondary);
+      color: white;
+    }
+
+    .day-node.milestone {
+      border: 2px solid var(--accent);
+      background: #FFF9DB;
+      color: #D97706;
+    }
+
+    .day-node.milestone.completed {
+      background: var(--accent);
+      color: #333;
+    }
+
+    /* Modal de Validación Parental */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      text-align: center;
+      width: 80%;
+      max-width: 300px;
+    }
+
+    .modal input {
+      width: 80%;
+      padding: 10px;
+      font-size: 18px;
+      text-align: center;
+      margin: 15px 0;
+      border: 2px solid #DDD;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app-container">
+    <header>
+      <h1>🚀 Camino de misiones - Alexander</h1>
+      <p style="color: #666; font-size: 14px;">¡Completa tus misiones!</p>
+    </header>
+
+    <div class="progress-card">
+      <p style="margin: 0; font-size: 14px; opacity: 0.9;">Días Logrados</p>
+      <h2 id="day-counter">Día 0 de 14</h2>
+    </div>
+
+    <div class="tasks-section">
+      <h3>Mis Misiones de Hoy:</h3>
+      <div class="task-item">
+        <input type="checkbox" id="task1">
+        <label for="task1">🧹 No hacer berrinche</label>
+      </div>
+      <div class="task-item">
+        <input type="checkbox" id="task2">
+        <label for="task2">🪥 Obedecer a papá y mamá</label>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn-parent" onclick="openParentModal()">🔒 Aprobar Día (Padres)</button>
+      <button style="background: #E2E8F0; color: #4A5568;" onclick="resetProgress()">Quitar día</button>
+    </div>
+
+    <h3 style="margin-top: 25px;">Mapa del Objetivo (14 Días):</h3>
+    <div class="roadmap" id="roadmap"></div>
+  </div>
+
+  <!-- Modal de Control Parental -->
+  <div class="modal" id="parentModal">
+    <div class="modal-content">
+      <h3>Zona de Padres</h3>
+      <p style="font-size: 13px; color: #666;">Ingresa el PIN de seguridad para validar el día:</p>
+      <input type="password" id="pinInput" maxlength="4" placeholder="PIN">
+      <div>
+        <button class="btn-parent" onclick="validateDay()">Confirmar</button>
+        <button onclick="closeParentModal()" style="background:#DDD; margin-left: 5px;">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const PIN_CORRECTO = "2468";
+    let currentDay = parseInt(localStorage.getItem('app_current_day')) || 0;
+
+    function renderRoadmap() {
+      const roadmapEl = document.getElementById('roadmap');
+      roadmapEl.innerHTML = '';
+
+      for (let i = 1; i <= 14; i++) {
+        const node = document.createElement('div');
+        node.className = 'day-node';
+
+        if (i <= currentDay) {
+          node.classList.add('completed');
+        }
+
+        if (i === 7) {
+          node.innerText = '🎁 7';
+          node.classList.add('milestone');
+        } else if (i === 14) {
+          node.innerText = '🏆 14';
+          node.classList.add('milestone');
+        } else {
+          node.innerText = i;
+        }
+
+        roadmapEl.appendChild(node);
+      }
+
+      document.getElementById('day-counter').innerText = `Día ${currentDay} de 14`;
+    }
+
+    function openParentModal() {
+      const t1 = document.getElementById('task1').checked;
+      const t2 = document.getElementById('task2').checked;
+
+
+      if (!t1 || !t2) {
+        alert("¡Atención! Aún no se han marcado todas las misiones del día.");
+        return;
+      }
+
+      document.getElementById('parentModal').style.display = 'flex';
+    }
+
+    function closeParentModal() {
+      document.getElementById('parentModal').style.display = 'none';
+      document.getElementById('pinInput').value = '';
+    }
+
+    function validateDay() {
+      const pin = document.getElementById('pinInput').value;
+      if (pin === PIN_CORRECTO) {
+        if (currentDay < 14) {
+          currentDay++;
+          localStorage.setItem('app_current_day', currentDay);
+          renderRoadmap();
+
+          // Limpiar tareas para el día siguiente
+          document.getElementById('task1').checked = false;
+          document.getElementById('task2').checked = false;
+
+          closeParentModal();
+
+          // Alertas de hitos
+          if (currentDay === 7) {
+            alert("🎉 ¡Felicidades! Han alcanzado el hito del Día 7. ¡Hora del primer premio!");
+          } else if (currentDay === 14) {
+            alert("🏆 ¡Increíble! Han completado el camino de 14 días. ¡Premio Mayor Desbloqueado!");
+          } else {
+            alert("¡Día validado con éxito!");
+          }
+        } else {
+          alert("¡Ya han completado los 14 días!");
+          closeParentModal();
+        }
+      } else {
+        alert("PIN incorrecto. Inténtalo de nuevo.");
+      }
+    }
+
+    function resetProgress() {
+      if (confirm("¿Estás seguro de que deseas quitar 1 día?")) {
+        currentDay = currentDay - 1;
+        localStorage.setItem('app_current_day', 0);
+        renderRoadmap();
+      }
+    }
+
+    // Inicializar mapa al cargar
+    renderRoadmap();
+  </script>
+
+</body>
+
+</html>
