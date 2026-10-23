@@ -1,16 +1,17 @@
 {
-  "background_color": "#ffffff",
-  "dir": "ltr",
-  "display": "standalone",
   "name": "Aventura Alexander",
-  "orientation": "any",
-  "scope": "/",
   "short_name": "Aventura",
-  "start_url": "[https://joraregut.github.io/Aventura-Alexander/](https://joraregut.github.io/Aventura-Alexander/)",
-  "theme_color": "#ffffff",
-  "description": "Aplicación de seguimiento de hábitos y logros infantiles.",
-  "id": "pp.Soft",
-  "categories": [
-    "education"
+  "description": "Aplicación de seguimiento de hábitos y logros infantiles",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#F7F9FC",
+  "theme_color": "#FF6B6B",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
   ]
 }
