@@ -189,7 +189,7 @@
 
     <div class="progress-card">
       <p style="margin: 0; font-size: 14px; opacity: 0.9;">Días Logrados</p>
-      <h2 id="day-counter">Día 0 de 14</h2>
+      <h2 id="day-counter">Día 0 de 6</h2>
     </div>
 
     <div class="tasks-section">
@@ -209,7 +209,7 @@
       <button style="background: #E2E8F0; color: #4A5568;" onclick="resetProgress()">Quitar día</button>
     </div>
 
-    <h3 style="margin-top: 25px;">Mapa del Objetivo (14 Días):</h3>
+    <h3 style="margin-top: 25px;">Mapa del Objetivo (6 Días):</h3>
     <div class="roadmap" id="roadmap"></div>
   </div>
 
@@ -242,11 +242,11 @@
           node.classList.add('completed');
         }
 
-        if (i === 7) {
-          node.innerText = '🎁 7';
+        if (i === 3) {
+          node.innerText = '🎁 3';
           node.classList.add('milestone');
-        } else if (i === 14) {
-          node.innerText = '🏆 14';
+        } else if (i === 6) {
+          node.innerText = '🏆 6';
           node.classList.add('milestone');
         } else {
           node.innerText = i;
@@ -255,7 +255,7 @@
         roadmapEl.appendChild(node);
       }
 
-      document.getElementById('day-counter').innerText = `Día ${currentDay} de 14`;
+      document.getElementById('day-counter').innerText = `Día ${currentDay} de 6`;
     }
 
     function openParentModal() {
@@ -291,15 +291,15 @@
           closeParentModal();
 
           // Alertas de hitos
-          if (currentDay === 7) {
-            alert("🎉 ¡Felicidades! Han alcanzado el hito del Día 7. ¡Hora del primer premio!");
-          } else if (currentDay === 14) {
-            alert("🏆 ¡Increíble! Han completado el camino de 14 días. ¡Premio Mayor Desbloqueado!");
+          if (currentDay === 3) {
+            alert("🎉 ¡Felicidades! Han alcanzado la meta del Día 3. ¡Hora del primer premio!");
+          } else if (currentDay === 6) {
+            alert("🏆 ¡Increíble! Han completado el camino de 6 días. ¡Premio Mayor Desbloqueado!");
           } else {
             alert("¡Día validado con éxito!");
           }
         } else {
-          alert("¡Ya han completado los 14 días!");
+          alert("¡Ya han completado los 6 días!");
           closeParentModal();
         }
       } else {
