@@ -234,7 +234,7 @@
       const roadmapEl = document.getElementById('roadmap');
       roadmapEl.innerHTML = '';
 
-      for (let i = 1; i <= 14; i++) {
+      for (let i = 1; i <= 6; i++) {
         const node = document.createElement('div');
         node.className = 'day-node';
 
@@ -279,7 +279,7 @@
     function validateDay() {
       const pin = document.getElementById('pinInput').value;
       if (pin === PIN_CORRECTO) {
-        if (currentDay < 14) {
+        if (currentDay < 6) {
           currentDay++;
           localStorage.setItem('app_current_day', currentDay);
           renderRoadmap();
@@ -308,8 +308,8 @@
     }
 
     function resetProgress() {
-      if (confirm("¿Estás seguro de que deseas quitar 1 día?")) {
-        currentDay = currentDay - 1;
+      if (confirm("¿Estás seguro de que deseas reiniciar el conteo?")) {
+        currentDay = 0;
         localStorage.setItem('app_current_day', 0);
         renderRoadmap();
       }
